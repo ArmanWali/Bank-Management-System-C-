@@ -1,8 +1,11 @@
 #include <iostream>
+#include <vector>
+#include <fstream>
+
 using namespace std;
 
 class Account{
-   private:
+   protected:
    int account_number;
    string account_holder_name;
    double balance;
@@ -10,6 +13,8 @@ class Account{
    public:
    Account(int acc_num, string acc_holder_name, double bal):
    account_number(acc_num), account_holder_name(acc_holder_name),balance(bal) {}
+
+   ~Account(){};
    
    void Create_Account(){
       cout<<"Enter your Account Number : ";
@@ -45,8 +50,22 @@ class Account{
     cout<<"Account holder's Name is : "<<account_holder_name<<endl;
     cout<<"Your account balance is : "<<balance<<endl;
    }
+
+   void view_balance(){
+      cout<<"Your current balance is : ";
+   }
+
+   friend void transfer_funds(Account &account1, Account &account2){}
 };
 
+void transfe_funds(Account &account1, Account &account2){
+
+}
+
+
 int main(){
+   Account a1(1122, "Arman Wali", 1000.0);
+   Account a2(3344, "Sinan Khan", 2000.0);
+   
 
 }
