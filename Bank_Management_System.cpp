@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -33,15 +34,25 @@ class Account{
    }
 
    void withdraw(){
-    double amount2;
+    double amount;
+    withdraw:
     cout<<"Enter How much money do you want to withdraw : ";
-    cin>>amount2;
-    if(amount2<=balance){
-        balance -= amount2;
+    cin>>amount;
+    if(amount<=balance){
+        balance -= amount;
         cout<<"Withdrawl Successfull!";
     }
     else{
-        cout<<"Invalid amount, please Enter valid amount";
+      char choice;
+      cout<<"Invalid amount, do you want another withdrawl"<<endl;
+      cin>>choice;
+      if(toupper(choice) == 'Y' ){
+         goto withdraw;
+      }
+      else{
+         return;
+      }
+
     }
    }
 
@@ -52,20 +63,50 @@ class Account{
    }
 
    void view_balance(){
-      cout<<"Your current balance is : ";
+      cout<<"Your current balance is : "<< balance <<endl;
    }
 
-   friend void transfer_funds(Account &account1, Account &account2){}
+   friend void transfer_funds(Account &account1, Account &account2);
 };
 
-void transfe_funds(Account &account1, Account &account2){
+void transfer_funds(Account &account1, Account &account2){
+   double amount;
+   transfer:
+   cout<<"Enter the amount you want to transfer : ";
+   cin>>amount;
+   if(amount <= account1.balance){
+      account1.balance -= amount;
+      account2.balance += amount;
+      cout<<"Transaction Successful!"<<endl;
+   }
+
+   else{
+      cout<<"Invalid amount! Try Again"<<endl;
+      char choice;
+      cout<<"Do you want another transfer? (y/n)"<<endl;
+      cin>>choice;
+      if(toupper(choice) == 'Y' ){
+         goto transfer;
+      }
+      else{
+         return;
+      }
+   }
 
 }
 
 
 int main(){
+   system("cls");
    Account a1(1122, "Arman Wali", 1000.0);
    Account a2(3344, "Sinan Khan", 2000.0);
    
-
+   cout<<"\n$$$$$-----Welcome to Bank Management System-----$$$$$"<<endl<<endl;
+   cout;
+   cout<<"  1.Create Account                  2.Deposite"<<endl;
+   cout<<"  3.Withdraw Amount                 4.Display Account details"<<endl;
+   cout<<"  5.View Balance                    6.Transfer funds"<<endl; 
+   
+   int choice;
+   
 }
